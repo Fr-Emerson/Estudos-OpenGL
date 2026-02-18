@@ -9,12 +9,16 @@ include_directories(
 )
 
 add_executable(Triangulo
-        Basico/Triangulos/main.cpp
+        Basico/1-Triangulos/main.cpp
         src/glad.c
 )
 
 add_executable(Quadrado
-        Basico/Quadrado/main.cpp
+        Basico/2-Quadrado/main.cpp
+        src/glad.c
+)
+add_executable(VertexColor
+        Basico/3-VertexColor/main.cpp
         src/glad.c
 )
 
@@ -27,7 +31,11 @@ target_link_libraries(Quadrado
         opengl32
         ${CMAKE_SOURCE_DIR}/libs/libglfw3.a
 )
+target_link_libraries(VertexColor
+        opengl32
+        ${CMAKE_SOURCE_DIR}/libs/libglfw3.a
 
+)
 add_custom_command(TARGET Triangulo POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_SOURCE_DIR}/libs/glfw3.dll"
@@ -38,4 +46,9 @@ add_custom_command(TARGET Quadrado POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_SOURCE_DIR}/libs/glfw3.dll"
         $<TARGET_FILE_DIR:Quadrado>
+)
+add_custom_command(TARGET VertexColor POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/libs/glfw3.dll"
+        $<TARGET_FILE_DIR:VertexColor>
 )
