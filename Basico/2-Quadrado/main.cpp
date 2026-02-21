@@ -5,6 +5,7 @@
 #include <EBO/EBO.h>
 #include<GLFW/glfw3.h>
 #include<iostream>
+#include <cmath>
 using namespace std;
 
 const int WIDTH = 800;
@@ -65,19 +66,21 @@ int main() {
     VBO vbo(vertices,sizeof(vertices));
     EBO ebo(indices,sizeof(indices));
 
-    vao.LinkVBO(vbo,0,3*sizeof(float),0);
+    vao.LinkVBO(vbo,0,3,3*sizeof(float),0);
     vao.Unbind();
     vbo.Unbind();
     ebo.Unbind();
 
-
     while (!glfwWindowShouldClose(window)) {
+        float time = glfwGetTime();
+        time = sin(time*5)/2;
         processInput(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shaderProgram.use();
+        shaderProgram.setFloat("offsetX",time);
         vao.Bind();
         glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,nullptr);
         glfwSwapBuffers(window);

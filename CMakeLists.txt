@@ -16,6 +16,7 @@ add_library(OpenGLCommon
         src/VAO.cpp
         src/VBO.cpp
         src/EBO.cpp
+        src/stb_image.cpp
 )
 
 target_link_libraries(OpenGLCommon
@@ -46,8 +47,12 @@ endfunction()
 add_example(Triangulo Basico/1-Triangulos/main.cpp)
 add_example(Quadrado Basico/2-Quadrado/main.cpp)
 add_example(VertexColor Basico/3-VertexColor/main.cpp)
+add_example(Textura Basico/4-Textura/main.cpp)
 
 file(COPY src/Shaders/default.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/default.frag DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/colors.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/colors.frag DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY src/Shaders/text.vert DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY src/Shaders/text.frag DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY src/gatito.jpg DESTINATION ${CMAKE_BINARY_DIR})

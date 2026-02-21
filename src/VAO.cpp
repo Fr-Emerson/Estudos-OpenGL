@@ -11,9 +11,9 @@ VAO::VAO() {
 /// <param name="layout">Índice do atributo de vértice no shader.</param>
 /// <param name="stride">Espaçamento em bytes entre vértices consecutivos.</param>
 /// <param name="offset">Deslocamento inicial do atributo, em número de floats.</param>
-void VAO::LinkVBO(VBO vbo, GLuint layout,GLsizei stride ,int offset) {
+void VAO::LinkVBO(VBO vbo, GLuint layout, GLint size, GLsizei stride, int offset) {
     vbo.Bind();
-    glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, stride, (void*)(offset*sizeof(float)));
+    glVertexAttribPointer(layout, size, GL_FLOAT, GL_FALSE, stride, (void*)(offset * sizeof(float)));
     glEnableVertexAttribArray(layout);
     vbo.Unbind();
 }

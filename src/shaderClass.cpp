@@ -9,7 +9,8 @@ std::string get_file_contents(const char *filename) {
         in.seekg(0, std::ios::beg);
         in.read(&contents[0], contents.size());
         in.close();
-        return (contents);
+        std::cout << "Arquivo: " << filename << "\nConteudo:\n" << contents << "\n---\n";
+        return contents;
     }
     throw(errno);
 }
@@ -36,6 +37,18 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+}
+void Shader::setBool(const std::string &name, bool value) const
+{
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
+}
+void Shader::setInt(const std::string &name, int value) const
+{
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+}
+void Shader::setFloat(const std::string &name, float value) const
+{
+    glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 void Shader::use(){
     glUseProgram(ID);

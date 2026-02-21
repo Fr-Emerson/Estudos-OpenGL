@@ -5,6 +5,7 @@
 #include <VBO/VBO.h>
 #include <EBO/EBO.h>
 #include<iostream>
+#include <stb_image/stb_image.h>
 using namespace std;
 
 const int WIDTH = 800;
@@ -45,20 +46,53 @@ int main() {
     glViewport(0,0,WIDTH,HEIGHT);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Shader shaderProgram("colors.vert","colors.frag");
+    Shader shaderProgram("text.vert","text.frag");
+
     float vertices[] = {
-        //Posições             //Cores
-        0.0, 0.5f, 0.0f,        1.0f,0.0f,0.0f,
-        0.5f, -0.5f, 0.0f,      0.0f,1.0f,0.0f,
-        -0.5f, -0.5f, 0.0f,     0.0f,0.0f,1.0f,
+        -0.5, 0.5f, 0.0f,       1.0f,0.0f,0.0f,     0.0f, 1.0f,
+        0.5f, 0.5f, 0.0f,       0.0f,1.0f,0.0f,     1.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f,     0.0f,0.0f,1.0f,     0.0f, 0.0f,
+        0.5f, -0.5f, 0.0f,      1.0f,1.0f,0.0f,     1.0f, 0.0f
     };
+    GLuint indices[] = {
+        0,1,2,
+        1,2,3
+    };
+
+
+    unsigned int texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D,texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char* data = stbi_load("gatito.jpg",&width,&height,&nrChannels,0);
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+    }
+    else {
+        cout << "Erro ao carregar a textura" << endl;
+    }
+    stbi_image_free(data);
+
+
     VAO vao;
     vao.Bind();
     VBO vbo(vertices,sizeof(vertices));
-    vao.LinkVBO(vbo,0,3,6*sizeof(float),0);
-    vao.LinkVBO(vbo,1,3,6*sizeof(float),3);
+    EBO ebo(indices,sizeof(indices));
+    vao.LinkVBO(vbo,0,3,8*(sizeof(float)),0);
+    vao.LinkVBO(vbo,1,3,8*(sizeof(float)),3);
+    vao.LinkVBO(vbo,2,2,8*(sizeof(float)),6);
     vao.Unbind();
     vbo.Unbind();
+    ebo.Unbind();
 
 
 
@@ -71,9 +105,8 @@ int main() {
 
         shaderProgram.use();
         vao.Bind();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
+        glBindTexture(GL_TEXTURE_2D,texture);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
