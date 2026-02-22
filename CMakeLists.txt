@@ -50,6 +50,7 @@ add_example(VertexColor Basico/3-VertexColor/main.cpp)
 add_example(Textura Basico/4-Textura/main.cpp)
 add_example(Transform Basico/5-Transforms/main.cpp)
 add_example(Coordenadas Basico/6-Coordenadas/main.cpp)
+add_example(Camera Basico/7-Camera/main.cpp)
 
 file(COPY src/Shaders/default.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/default.frag DESTINATION ${CMAKE_BINARY_DIR})
