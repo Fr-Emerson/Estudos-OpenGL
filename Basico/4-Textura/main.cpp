@@ -6,6 +6,7 @@
 #include <EBO/EBO.h>
 #include<iostream>
 #include <stb_image/stb_image.h>
+#include <glm/mat2x2.hpp>
 using namespace std;
 
 const int WIDTH = 800;
