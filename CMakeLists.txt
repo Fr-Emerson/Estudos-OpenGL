@@ -51,15 +51,25 @@ add_example(Textura Basico/4-Textura/main.cpp)
 add_example(Transform Basico/5-Transforms/main.cpp)
 add_example(Coordenadas Basico/6-Coordenadas/main.cpp)
 add_example(Camera Basico/7-Camera/main.cpp)
+add_example(Cores Luz/1-CorLuz/main.cpp)
+
 
 file(COPY src/Shaders/default.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/default.frag DESTINATION ${CMAKE_BINARY_DIR})
+
 file(COPY src/Shaders/colors.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/colors.frag DESTINATION ${CMAKE_BINARY_DIR})
+
 file(COPY src/Shaders/text.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/text.frag DESTINATION ${CMAKE_BINARY_DIR})
+
 file(COPY src/Shaders/transform.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/transform.frag DESTINATION ${CMAKE_BINARY_DIR})
+
 file(COPY src/Shaders/Coord.vert DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY src/Shaders/Coord.frag DESTINATION ${CMAKE_BINARY_DIR})
+
+file(COPY src/Shaders/lightColor.vert DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY src/Shaders/lightColor.frag DESTINATION ${CMAKE_BINARY_DIR})
+
 file(COPY src/gatito.jpg DESTINATION ${CMAKE_BINARY_DIR})
