@@ -175,8 +175,11 @@ int main() {
         unsigned int LightPosLoc  = glGetUniformLocation(shaderProgram.ID,"LightPos");
 
         glm::vec3 LightColor(1,1,1);
-        glm::vec3 lightPos(0.0f,0.0f,sin((float)glfwGetTime()*1.5)*4.0f);
+        glm::vec3 lightPos(0.0f,0.0f,2.0f);
+        glm::mat4 transf = glm::mat4(1.0f);
+        transf = glm::rotate(transf,(float)glfwGetTime()*glm::radians(50.0f),glm::vec3(0.0f,1.0f,0.0f));
 
+        lightPos = glm::vec3(transf * glm::vec4(lightPos,1.0f));
         glUniformMatrix4fv(viewLoc,1,GL_FALSE,glm::value_ptr(view));
         glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(model));
         glUniformMatrix4fv(projLoc,1,GL_FALSE,glm::value_ptr(proj));
